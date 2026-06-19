@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-This module provides an asynchronous generator that
-yields random floating-point
-numbers at regulartime intervals using the asyncio framework.
+Module that provides an async generator function.
 """
 
 import asyncio
@@ -12,8 +10,7 @@ from typing import AsyncGenerator
 
 async def async_generator() -> AsyncGenerator[float, None]:
     """
-    Loop ten times, asynchronously waiting 1 second each time
-    before yielding a random float between 0 and 10.
+    Yields ten random numbers with a delay.
     """
     for _ in range(10):
         await asyncio.sleep(1)
