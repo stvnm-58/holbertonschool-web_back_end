@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This module provides an asynchronous generator that 
+This module provides an asynchronous generator that
 yields random floating-point
 numbers at regulartime intervals using the asyncio framework.
 """
