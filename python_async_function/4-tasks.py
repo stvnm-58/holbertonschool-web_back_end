@@ -1,33 +1,24 @@
 #!/usr/bin/env python3
-"""Module pour exécuter plusieurs tâches asyncio en parallèle via task_wait_random."""
-
+"""
+This module provides a function task_wait_n that uses task_wait_random
+to execute multiple concurrent tasks and return their results.
+"""
 import asyncio
+from typing import List
 
-# Importation dynamique de la fonction de la tâche 3
 task_wait_random = __import__('3-tasks').task_wait_random
 
 
-async def task_wait_n(n: int, max_delay: int) -> list[float]:
-    """Exécute n tâches générées par task_wait_random en parallèle.
-
-    Les résultats sont récupérés dans leur ordre de complétion.
-
-    Args:
-        n (int): Le nombre de tâches à créer.
-        max_delay (int): Le délai maximal pour chaque tâche.
-
-    Returns:
-        list[float]: Liste des délais triés par ordre croissant de résolution.
+async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
-    delays: list[float] = []
-    tasks: list[asyncio.Task[float]] = []
+    Spawns task_wait_random n times with the specified max_delay.
+    Returns the list of all the delays in ascending order.
+    """
+    delays: List[float] = []
+    taches = [task_wait_random(max_delay) for _ in range(n)]
 
-    for _ in range(n):
-        nouvelle_tache = task_wait_random(max_delay)
-        tasks.append(nouvelle_tache)
-
-    for task in asyncio.as_completed(tasks):
-        resultat = await task
-        delays.append(resultat)
+    for tache_terminee in asyncio.as_completed(taches):
+        delay = await tache_terminee
+        delays.append(delay)
 
     return delays
