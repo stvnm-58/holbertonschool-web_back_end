@@ -1,22 +1,15 @@
 #!/usr/bin/env python3
-"""Async Generator"""
+"""Module global pour la génération de nombres de manière asynchrone."""
 
 import asyncio
 import random
-from typing import Generator
 
 
-async def async_generator() -> Generator[float, None, None]:
-    """Create a async Generator, yield random int 10 times"""
+async def async_generator():
+    """Génère dix nombres flottants aléatoires entre 0 et 10.
+
+    Attend une seconde de manière asynchrone entre chaque génération.
+    """
     for _ in range(10):
         await asyncio.sleep(1)
         yield random.uniform(0, 10)
-
-if __name__ == "__main__":
-    async def print_yielded_values():
-        result = []
-        async for i in async_generator():
-            result.append(i)
-        print(result)
-
-    asyncio.run(print_yielded_values())
